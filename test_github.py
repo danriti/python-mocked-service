@@ -7,11 +7,15 @@ Tests for the Github API library.
 
 import unittest
 
+from httmock import with_httmock
+
 import github
+import mocks.github
 
 
 class TestGithub(unittest.TestCase):
 
+    @with_httmock(mocks.github.repository)
     def test_get_repository(self):
         owner = 'appneta'
         repo = 'burndown'
