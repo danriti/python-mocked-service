@@ -27,6 +27,16 @@ class TestGithub(unittest.TestCase):
         self.assertTrue('name' in results)
         self.assertEqual(results['name'], repo)
 
+    @with_httmock(mocks.github.resource_get)
+    def test_get_user(self):
+        user = 'danriti'
+
+        results = github.get_user(user)
+
+        self.assertNotEqual(results, None)
+        self.assertIsInstance(results, dict)
+        self.assertTrue('login' in results)
+        self.assertEqual(results['login'], user)
 
 if __name__ == '__main__':
     unittest.main()
