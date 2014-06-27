@@ -16,6 +16,7 @@ GET = 'get'
 
 @urlmatch(netloc=NETLOC, path='/repos', method=GET)
 def repository(url, request):
-    name = url.path.split('/')[-1]
-    content = {'name': name}
+    file_path = url.netloc + url.path
+    with open(file_path, 'r') as f:
+        content = f.read()
     return response(200, content, HEADERS, None, 5, request)
