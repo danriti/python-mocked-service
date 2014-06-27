@@ -27,3 +27,16 @@ def get_repository(owner, repo):
     response = requests.get(uri)
     response.raise_for_status()
     return response.json()
+
+
+def get_user(user):
+    """ Get user information.
+
+    :param user: The name of the GitHub user.
+    :rtype: dict
+
+    """
+    uri = 'https://{0}/users/{1}'.format(GITHUB_AUTHORITY, user)
+    response = requests.get(uri)
+    response.raise_for_status()
+    return response.json()
