@@ -38,5 +38,10 @@ class Resource:
 @urlmatch(netloc=NETLOC, method=GET)
 def resource_get(url, request):
     file_path = url.netloc + url.path
-    content = Resource(file_path).get()
+    try:
+        content = Resource(file_path).get()
+    except EnvironmentError:
+        # catch any environment errors (i.e. file does not exist) and return a
+        # 404.
+        return response(404, {}, HEADERS, None, 5, request)
     return response(200, content, HEADERS, None, 5, request)
