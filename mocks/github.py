@@ -14,8 +14,8 @@ HEADERS = {'content-type': 'application/json'}
 GET = 'get'
 
 
-@urlmatch(netloc=NETLOC, path='/repos', method=GET)
-def repository(url, request):
+@urlmatch(netloc=NETLOC, method=GET)
+def resource_get(url, request):
     file_path = url.netloc + url.path
     with open(file_path, 'r') as f:
         content = f.read()

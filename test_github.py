@@ -15,7 +15,7 @@ import mocks.github
 
 class TestGithub(unittest.TestCase):
 
-    @with_httmock(mocks.github.repository)
+    @with_httmock(mocks.github.resource_get)
     def test_get_repository(self):
         owner = 'appneta'
         repo = 'burndown'
