@@ -14,9 +14,29 @@ HEADERS = {'content-type': 'application/json'}
 GET = 'get'
 
 
+class Resource:
+    """ A GitHub resource.
+
+    :param path: The file path to the resource.
+
+    """
+
+    def __init__(self, path):
+        self.path = path
+
+    def get(self):
+        """ Perform a GET request on the resource.
+
+        :rtype: str
+
+        """
+        with open(self.path, 'r') as f:
+            content = f.read()
+        return content
+
+
 @urlmatch(netloc=NETLOC, method=GET)
 def resource_get(url, request):
     file_path = url.netloc + url.path
-    with open(file_path, 'r') as f:
-        content = f.read()
+    content = Resource(file_path).get()
     return response(200, content, HEADERS, None, 5, request)
